@@ -1,0 +1,320 @@
+/* Основные стили */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding-top: 70px;
+    background: #121212;
+    color: #eee;
+    transition: padding-top 0.3s ease;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 1000; /* чтобы меню было поверх всего */
+    background-color: #ff4ecb; /* или другой цвет фона, чтобы не было прозрачности */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* можно добавить тень для отделения от контента */
+}
+
+/* Меню горизонтальное */
+.nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #fff; /* белый текст для контраста */
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.7);
+}
+
+.nav-link:hover {
+    color: #ffe0f0; /* более светлый розовый при наведении */
+}
+
+/* Анимация появления меню */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Чтобы контент не прыгал */
+body {
+    transition: padding-top 0.3s ease;
+    padding-top: 60px;
+}
+
+/* Галерея */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    min-height: 10vh;
+    position: relative;
+    z-index: 1;
+    margin-top: 70px;
+    scroll-margin-top: 80px;
+}
+.gallery-img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+.gallery-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #ff4ecb;
+}
+
+/* Попап галереи */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+.popup.active {
+    opacity: 1;
+    pointer-events: all;
+}
+.popup-img {
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 10px;
+}
+.popup .arrow {
+    position: absolute;
+    background: #ff4ecb;
+    border: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+.popup .arrow:hover {
+    background: #ff87d1;
+}
+.popup .left {
+    left: 2rem;
+}
+.popup .right {
+    right: 2rem;
+}
+.popup .close-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+}
+
+/* Форма обратной связи */
+.contact-section {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #1a1a1a;
+    border-radius: 12px;
+    scroll-margin-top: 80px;
+}
+#contactForm input,
+#contactForm textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    background: #2a2a2a;
+    border: 2px solid #ff4ecb;
+    border-radius: 8px;
+    color: white;
+    transition: all 0.3s;
+}
+#contactForm textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+.form-buttons {
+    display: flex;
+    gap: 10px;
+}
+#contactForm button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex: 1;
+}
+#submitBtn {
+    background: #ff4ecb;
+    color: white;
+}
+#resetBtn {
+    display: none;
+    background: #444;
+    color: #eee;
+}
+#resetBtn:hover {
+    background: #555;
+}
+#formMessage {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    text-align: center;
+    display: none;
+}
+.error-message {
+    background: #ffebee;
+    color: #d32f2f;
+    display: block !important;
+}
+.success-message {
+    background: #e8f5e9;
+    color: #2e7d32;
+    display: block !important;
+}
+
+/* Стили после отправки */
+#contactForm.sent input,
+#contactForm.sent textarea {
+    background: #333;
+    border-color: #555;
+    color: #999;
+    cursor: not-allowed;
+}
+#contactForm.sent #submitBtn {
+    background: #4CAF50;
+    padding-left: 2.5rem;
+    position: relative;
+    cursor: not-allowed;
+}
+#contactForm.sent #submitBtn::before {
+    content: "✓";
+    position: absolute;
+    left: 1rem;
+}
+#contactForm.sent #resetBtn {
+    display: block;
+}
+
+/* Анимация отправки */
+#contactForm.sending #submitBtn {
+    position: relative;
+    overflow: hidden;
+}
+#contactForm.sending #submitBtn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: loading 1.5s infinite;
+}
+@keyframes loading {
+    100% { left: 100%; }
+}
+
+/* Таймер */
+.countdown {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.5rem;
+    color: #ff87d1;
+}
+
+/* Отложенный попап */
+.popup.delayed {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    max-width: 300px;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+}
+
+.svg-container {
+    width: 15vmin; /* Адаптивный размер относительно меньшей стороны экрана */
+    height: 15vmin;
+    max-width: 100px; /* Ограничиваем максимальный размер */
+    max-height: 100px;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    background: rgba(255, 78, 203, 0.1);
+    box-shadow: 0 0 0 1px rgba(255, 78, 203, 0.3); /* Граница для визуализации */
+}
+
+#animatedSvg {
+    width: 40%; /* Занимаем 70% от контейнера */
+    height: 40%;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .gallery-img {
+        width: 100%;
+        max-width: 300px;
+    }
+    .popup .arrow {
+        font-size: 1.5rem;
+        padding: 0.5rem;
+    }
+    .popup.delayed {
+        position: static;
+        max-width: 90%;
+        margin: 1rem auto;
+    }
+    .form-buttons {
+        flex-direction: column;
+    }
+}

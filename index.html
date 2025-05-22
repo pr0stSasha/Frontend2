@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Мой проект</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header id="header" class="header">
+    <nav class="nav">
+        <ul class="nav-list">
+            <li><a href="#gallery" class="nav-link">Галерея</a></li>
+            <li><a href="#contact-section" class="nav-link">Обратная связь</a></li>
+            <li><a href="#countdown" class="nav-link">Таймер</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Галерея -->
+<section id="gallery" class="gallery">
+    <img src="images/img1.jpg" loading="lazy" alt="Image 1" class="gallery-img" />
+    <img src="images/img2.jpg" loading="lazy" alt="Image 2" class="gallery-img" />
+    <img src="images/img3.jpg" loading="lazy" alt="Image 3" class="gallery-img" />
+    <img src="images/img4.jpg" loading="lazy" alt="Image 4" class="gallery-img" />
+    <img src="images/img5.jpg" loading="lazy" alt="Image 5" class="gallery-img" />
+    <img src="images/img6.jpg" loading="lazy" alt="Image 6" class="gallery-img" />
+</section>
+
+<!-- Попап галереи -->
+<div class="popup" id="imagePopup">
+    <span class="close-btn">&times;</span>
+    <img id="popupImage" class="popup-img" />
+    <button class="arrow left">&larr;</button>
+    <button class="arrow right">&rarr;</button>
+</div>
+
+<div class="svg-container">
+    <svg id="animatedSvg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- SVG сердечка с анимацией пульсации -->
+        <path id="heart" d="M50,30
+                           C30,5 0,15 0,40
+                           C0,60 25,80 50,95
+                           C75,80 100,60 100,40
+                           C100,15 70,5 50,30Z"
+              fill="#ff4ecb">
+            <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+        </path>
+    </svg>
+</div>
+
+
+<section  id="contact-section"  class="contact-section">
+    <form id="contactForm">
+        <input type="text" name="name" placeholder="Ваше имя" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="tel" name="phone" placeholder="Телефон" required />
+        <textarea name="message" placeholder="Сообщение" required></textarea>
+        <div class="form-buttons">
+            <button type="submit" id="submitBtn">Отправить</button>
+            <button type="button" id="resetBtn">Написать ещё</button>
+        </div>
+        <div id="formMessage"></div>
+    </form>
+</section>
+
+<!-- Таймер -->
+<section id = "countdown" class="countdown">
+    <h2>До получения вышки:</h2>
+    <div id="timer">00д 00ч 00м 00с</div>
+</section>
+
+<!-- Отложенный попап -->
+<div id="delayedPopup" class="popup delayed">
+    <span class="close-btn">&times;</span>
+    <p>Выскажите свое мнение об этом сайте в форме обратной связи</p>
+</div>
+
+<!-- SVG анимация -->
+<script src="script.js"></script>
+</body>
+</html>
