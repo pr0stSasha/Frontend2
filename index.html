@@ -17,7 +17,6 @@
     </nav>
 </header>
 
-<!-- Галерея -->
 <section id="gallery" class="gallery">
     <img src="images/img1.jpg" loading="lazy" alt="Image 1" class="gallery-img" />
     <img src="images/img2.jpg" loading="lazy" alt="Image 2" class="gallery-img" />
@@ -27,7 +26,6 @@
     <img src="images/img6.jpg" loading="lazy" alt="Image 6" class="gallery-img" />
 </section>
 
-<!-- Попап галереи -->
 <div class="popup" id="imagePopup">
     <span class="close-btn">&times;</span>
     <img id="popupImage" class="popup-img" />
@@ -37,7 +35,6 @@
 
 <div class="svg-container">
     <svg id="animatedSvg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <!-- SVG сердечка с анимацией пульсации -->
         <path id="heart" d="M50,30
                            C30,5 0,15 0,40
                            C0,60 25,80 50,95
@@ -51,11 +48,17 @@
 
 
 <section  id="contact-section"  class="contact-section">
-    <form id="contactForm">
+    <form id="contactForm" novalidate>
         <input type="text" name="name" placeholder="Ваше имя" required />
         <input type="email" name="email" placeholder="Email" required />
         <input type="tel" name="phone" placeholder="Телефон" required />
         <textarea name="message" placeholder="Сообщение" required></textarea>
+        <ul class="valid-list">
+            <li id="nameReq"> Имя должно быть не менее 2 символов</li>
+            <li id="phoneReq">Формат телефона +7(8)**********</li>
+            <li id="emailReq">Почта в формате *@*.*</li>
+            <li id="messageReq">Текст сообщения должен быть не менее 5 символов</li>
+        </ul>
         <div class="form-buttons">
             <button type="submit" id="submitBtn">Отправить</button>
             <button type="button" id="resetBtn">Написать ещё</button>
@@ -64,19 +67,16 @@
     </form>
 </section>
 
-<!-- Таймер -->
 <section id = "countdown" class="countdown">
     <h2>До получения вышки:</h2>
     <div id="timer">00д 00ч 00м 00с</div>
 </section>
 
-<!-- Отложенный попап -->
 <div id="delayedPopup" class="popup delayed">
     <span class="close-btn">&times;</span>
     <p>Выскажите свое мнение об этом сайте в форме обратной связи</p>
 </div>
 
-<!-- SVG анимация -->
 <script src="script.js"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
-// Галерея изображений
+
 const galleryImgs = document.querySelectorAll('.gallery-img');
+const imageCount = galleryImgs.length;
 const imagePopup = document.getElementById('imagePopup');
 const popupImage = document.getElementById('popupImage');
 const leftArrow = document.querySelector('.arrow.left');
@@ -16,7 +17,6 @@ window.addEventListener('scroll', () => {
         document.body.style.paddingTop = '0';
     }
 });
-// Открытие попапа с изображением
 galleryImgs.forEach((img, index) => {
     img.addEventListener('click', () => {
         currentImgIndex = index;
@@ -26,46 +26,97 @@ galleryImgs.forEach((img, index) => {
     });
 });
 
-// Навигация по изображениям
 leftArrow.addEventListener('click', () => {
-    if (currentImgIndex > 0) {
-        currentImgIndex--;
+        currentImgIndex = (currentImgIndex - 1 + imageCount) % imageCount;
         popupImage.src = galleryImgs[currentImgIndex].src;
-        updateArrows();
-    }
 });
 
 rightArrow.addEventListener('click', () => {
-    if (currentImgIndex < galleryImgs.length - 1) {
-        currentImgIndex++;
+        currentImgIndex = (currentImgIndex + 1) % imageCount;
         popupImage.src = galleryImgs[currentImgIndex].src;
-        updateArrows();
-    }
 });
 
-function updateArrows() {
-    leftArrow.style.display = currentImgIndex === 0 ? 'none' : 'block';
-    rightArrow.style.display = currentImgIndex === galleryImgs.length - 1 ? 'none' : 'block';
-}
-
-// Закрытие попапов
 closeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         document.querySelector('.popup.active').classList.remove('active');
     });
 });
 
-// Форма обратной связи
 const contactForm = document.getElementById('contactForm');
 const submitBtn = document.getElementById('submitBtn');
 const resetBtn = document.getElementById('resetBtn');
 const formMessage = document.getElementById('formMessage');
+const rules = document.querySelectorAll('.valid-list li');
+const nameReq = document.getElementById('nameReq');
+const phoneReq = document.getElementById('phoneReq');
+const emailReq = document.getElementById('emailReq');
+const messageReq = document.getElementById('messageReq');
+
+function updateSubmitState() {
+    const allValid = [...rules].every(li => li.classList.contains('valid'));
+    submitBtn.disabled = !allValid;
+}
+contactForm.name.addEventListener('input', async (e) => {
+
+    const name = contactForm.name.value.trim();
+    updateSubmitState();
+
+    if (!name || name.length < 2) {
+        nameReq.classList.remove('valid');
+        return;
+    }
+    showFormMessage('', '');
+    nameReq.classList.add('valid');
+    updateSubmitState();
+});
+
+contactForm.phone.addEventListener('input', async (e) => {
+
+    const phone = contactForm.phone.value.trim();
+    updateSubmitState();
+
+    if(!/^\+?[78]\d{10}$/.test(phone)) {
+        phoneReq.classList.remove('valid');
+        return;
+    }
+    showFormMessage('', '');
+    phoneReq.classList.add('valid');
+    updateSubmitState();
+});
+
+contactForm.email.addEventListener('input', async (e) => {
+
+    const email = contactForm.email.value.trim();
+    updateSubmitState();
+
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        emailReq.classList.remove('valid');
+        return;
+    }
+    showFormMessage('', '');
+    emailReq.classList.add('valid');
+    updateSubmitState();
+});
+
+contactForm.message.addEventListener('input', async (e) => {
+
+    const message = contactForm.message.value.trim();
+    updateSubmitState();
+
+    if(message.length < 5) {
+        messageReq.classList.remove('valid');
+        return;
+    }
+    showFormMessage('', '');
+    messageReq.classList.add('valid');
+    updateSubmitState();
+});
+
 
 contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     console.log('Начало обработки формы');
 
-    // Получаем данные формы
     const formData = {
         name: contactForm.name.value.trim(),
         email: contactForm.email.value.trim(),
@@ -73,18 +124,6 @@ contactForm.addEventListener('submit', async (e) => {
         message: contactForm.message.value.trim()
     };
 
-    // Валидация
-    if (!formData.name || !formData.email || !formData.phone || !formData.message) {
-        showFormMessage('Все поля обязательны для заполнения', 'error');
-        return;
-    }
-
-    if (!/^\+?[78]\d{10}$/.test(formData.phone)) {
-        showFormMessage('Телефон должен начинаться с +7, 7 или 8 и содержать 11 цифр', 'error');
-        return;
-    }
-
-    // Блокировка формы
     submitBtn.disabled = true;
     submitBtn.textContent = 'Отправка...';
     contactForm.classList.add('sending');
@@ -94,27 +133,27 @@ contactForm.addEventListener('submit', async (e) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Accept': 'application/json' // Добавлено для получения подробных ошибок
+                'Accept': 'application/json'
             },
             body: new URLSearchParams(formData).toString()
         });
 
         console.log('Статус ответа:', response.status);
 
-        const result = await response.json(); // Пробуем распарсить тело ответа
+        const result = await response.json();
 
         if (response.ok) {
             showFormMessage('Сообщение успешно отправлено!', 'success');
             contactForm.classList.replace('sending', 'sent');
             submitBtn.textContent = 'Отправлено ✓';
             resetBtn.style.display = 'block';
-
-            // Блокируем поля формы
+            const rules = document.querySelector('.valid-list');
+            const items = rules.querySelectorAll('li');
+            items.forEach(li => li.classList.remove('valid'));
             Array.from(contactForm.elements).forEach(el => {
                 if (el !== resetBtn) el.disabled = true;
             });
         } else {
-            // Если есть ошибки от Formspree, показываем их
             const errorMessage = result.errors
                 ? result.errors.map(err => err.message).join(', ')
                 : 'Неизвестная ошибка';
@@ -129,7 +168,7 @@ contactForm.addEventListener('submit', async (e) => {
     }
 });
 
-// Сброс формы
+
 resetBtn.addEventListener('click', () => {
     contactForm.reset();
     contactForm.classList.remove('sent', 'sending');
@@ -146,7 +185,6 @@ function showFormMessage(text, type) {
     formMessage.style.display = 'block';
 }
 
-// Таймер до диплома
 const timer = document.getElementById('timer');
 const targetDate = new Date('2028-06-25').getTime();
 
@@ -164,7 +202,6 @@ function updateTimer() {
 }
 updateTimer();
 
-// Отложенный попап
 const delayedPopup = document.getElementById('delayedPopup');
 
 if (!localStorage.getItem('popupClosed')) {
@@ -178,7 +215,6 @@ delayedPopup.querySelector('.close-btn').addEventListener('click', () => {
     localStorage.setItem('popupClosed', 'true');
 });
 
-// Фиксированное меню
 const header = document.getElementById('header');
 
 window.addEventListener('scroll', () => {
@@ -199,26 +235,21 @@ window.addEventListener('mousemove', (e) => {
     const centerX = containerRect.left + containerRect.width / 2;
     const centerY = containerRect.top + containerRect.height / 2;
 
-    // Рассчитываем относительное положение мыши (от -1 до 1)
     const relX = (e.clientX - centerX) / (containerRect.width / 2);
     const relY = (e.clientY - centerY) / (containerRect.height / 2);
 
-    // Ограничиваем максимальное смещение (5% от размера контейнера)
     const maxShift = 0.03;
-    const shiftX = relX * maxShift * 100; // В процентах
+    const shiftX = relX * maxShift * 100;
     const shiftY = relY * maxShift * 100;
 
-    // Ограниченное вращение (макс 10 градусов)
     const rotation = (relX + relY) * 10;
 
-    // Применяем трансформацию в процентах
     svg.style.transform = `
         translate(${shiftX}%, ${shiftY}%)
         rotate(${rotation}deg)
     `;
 });
 
-// Сброс позиции при уходе мыши
 container.addEventListener('mouseleave', () => {
     svg.style.transform = 'translate(0, 0) rotate(0deg)';
 });

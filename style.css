@@ -1,4 +1,4 @@
-/* Основные стили */
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -17,12 +17,11 @@ html {
     left: 0;
     width: 100%;
     height: 60px;
-    z-index: 1000; /* чтобы меню было поверх всего */
-    background-color: #ff4ecb; /* или другой цвет фона, чтобы не было прозрачности */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* можно добавить тень для отделения от контента */
+    z-index: 1000;
+    background-color: #ff4ecb;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Меню горизонтальное */
 .nav {
     max-width: 1200px;
     margin: 0 auto;
@@ -40,7 +39,7 @@ html {
 
 .nav-link {
     text-decoration: none;
-    color: #fff; /* белый текст для контраста */
+    color: #fff;
     font-weight: 600;
     font-size: 1rem;
     transition: color 0.3s ease;
@@ -49,10 +48,9 @@ html {
 }
 
 .nav-link:hover {
-    color: #ffe0f0; /* более светлый розовый при наведении */
+    color: #ffe0f0;
 }
 
-/* Анимация появления меню */
 @keyframes slideDown {
     from {
         transform: translateY(-100%);
@@ -62,13 +60,11 @@ html {
     }
 }
 
-/* Чтобы контент не прыгал */
 body {
     transition: padding-top 0.3s ease;
     padding-top: 60px;
 }
 
-/* Галерея */
 .gallery {
     display: flex;
     flex-wrap: wrap;
@@ -94,7 +90,6 @@ body {
     box-shadow: 0 0 15px #ff4ecb;
 }
 
-/* Попап галереи */
 .popup {
     position: fixed;
     top: 0;
@@ -148,7 +143,6 @@ body {
     color: white;
 }
 
-/* Форма обратной связи */
 .contact-section {
     max-width: 500px;
     margin: 2rem auto;
@@ -197,6 +191,13 @@ body {
 #resetBtn:hover {
     background: #555;
 }
+.valid-list li {
+    color: #ff4c4c;
+}
+
+.valid-list li.valid {
+    color: #28a745;
+}
 #formMessage {
     margin-top: 1rem;
     padding: 0.5rem;
@@ -206,16 +207,15 @@ body {
 }
 .error-message {
     background: #ffebee;
-    color: #d32f2f;
+    color: #ff4c4c;
     display: block !important;
 }
 .success-message {
     background: #e8f5e9;
-    color: #2e7d32;
+    color: #28a745;
     display: block !important;
 }
 
-/* Стили после отправки */
 #contactForm.sent input,
 #contactForm.sent textarea {
     background: #333;
@@ -238,7 +238,6 @@ body {
     display: block;
 }
 
-/* Анимация отправки */
 #contactForm.sending #submitBtn {
     position: relative;
     overflow: hidden;
@@ -257,7 +256,6 @@ body {
     100% { left: 100%; }
 }
 
-/* Таймер */
 .countdown {
     text-align: center;
     padding: 2rem;
@@ -265,7 +263,6 @@ body {
     color: #ff87d1;
 }
 
-/* Отложенный попап */
 .popup.delayed {
     background: #1a1a1a;
     color: #fff;
@@ -278,20 +275,20 @@ body {
 }
 
 .svg-container {
-    width: 15vmin; /* Адаптивный размер относительно меньшей стороны экрана */
+    width: 15vmin;
     height: 15vmin;
-    max-width: 100px; /* Ограничиваем максимальный размер */
+    max-width: 100px;
     max-height: 100px;
     margin: 20px auto;
     position: relative;
     overflow: hidden;
     border-radius: 50%;
     background: rgba(255, 78, 203, 0.1);
-    box-shadow: 0 0 0 1px rgba(255, 78, 203, 0.3); /* Граница для визуализации */
+    box-shadow: 0 0 0 1px rgba(255, 78, 203, 0.3);
 }
 
 #animatedSvg {
-    width: 40%; /* Занимаем 70% от контейнера */
+    width: 40%;
     height: 40%;
     position: absolute;
     top: 30%;
@@ -299,7 +296,6 @@ body {
     transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
     .gallery-img {
         width: 100%;
